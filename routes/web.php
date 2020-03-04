@@ -16,3 +16,22 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'Admin'
+], function () {
+
+    Route::group(['prefix' => 'products'], function () {
+        Route::get('', 'ProductController@index');
+        Route::get('create', 'ProductController@create');
+        Route::post('', 'ProductController@store');
+        Route::get('{idProduct}/edit', 'ProductController@edit');
+        Route::put('{idProduct}', 'ProductController@update');
+        Route::delete('{idProduct}', 'ProductController@destroy');
+        Route::get('{idProduct}', 'ProductController@show');
+    });
+
+    Route::resource('users', 'UserController');
+
+});
