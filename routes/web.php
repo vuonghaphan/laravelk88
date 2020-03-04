@@ -45,7 +45,7 @@ Route::group([
     Route::group(['prefix' => 'oders'
 ], function () {
     Route::get('','OderController@index');
-    Route::get('','OderController@index');
+    Route::get('processed','OderController@processed');
     Route::post('{idproduct}/edit','OderController@edit');
     Route::put('{idproduct}','OderController@update');
     });
