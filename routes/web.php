@@ -32,13 +32,9 @@ Route::group([
     //     Route::get('{idProduct}', 'ProductController@show');
     // });
 
-    Route::resource('users', 'UserController');
-    Route::resource('products', 'ProductsController');
-    Route::resource('category', 'CategoryController');
-
     Route::get('login','LoginController@showLoginForm');
     Route::post('login','LoginController@login');
-    Route::delete('login','LoginController@logout');
+    Route::post('logout','LoginController@logout');
 
     Route::get('','DashboardController');
 
@@ -46,8 +42,10 @@ Route::group([
 ], function () {
     Route::get('','OderController@index');
     Route::get('processed','OderController@processed');
-    Route::post('{idproduct}/edit','OderController@edit');
-    Route::put('{idproduct}','OderController@update');
+    Route::post('{idprd}/edit','OderController@edit');
+    Route::put('{idprd}','OderController@update');
     });
-
+    Route::resource('users', 'UserController');
+    Route::resource('products', 'ProductsController');
+    Route::resource('category', 'CategoryController');
 });
