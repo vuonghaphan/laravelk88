@@ -38,11 +38,11 @@ Route::group([
 
     Route::get('','DashboardController');
 
-    Route::group(['prefix' => 'oders'
+    Route::group(['prefix' => 'orders'
 ], function () {
     Route::get('','OderController@index');
     Route::get('processed','OderController@processed');
-    Route::post('{idprd}/edit','OderController@edit');
+    Route::get('{idprd}/edit','OderController@edit');
     Route::put('{idprd}','OderController@update');
     });
     Route::resource('users', 'UserController');
