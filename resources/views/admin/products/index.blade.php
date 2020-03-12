@@ -50,7 +50,7 @@
                                         <td>1</td>
                                         <td>
                                             <div class="row">
-                                                <div class="col-md-3"><img src="img/ao-khoac.jpg" alt="Áo đẹp" width="100px" class="thumbnail"></div>
+                                                <div class="col-md-3"><img src="/assets/admin/img/ao-khoac.jpg" alt="Áo đẹp" width="100px" class="thumbnail"></div>
                                                 <div class="col-md-9">
                                                     <p><strong>Mã sản phẩm : SP01</strong></p>
                                                     <p>Tên sản phẩm :Áo Khoác Bomber Nỉ Xanh Lá Cây AK179</p>
@@ -73,7 +73,7 @@
                                         <td>1</td>
                                         <td>
                                             <div class="row">
-                                                <div class="col-md-3"><img src="img/ao-khoac.jpg" alt="Áo đẹp" width="100px" class="thumbnail"></div>
+                                                <div class="col-md-3"><img src="/assets/admin/img/ao-khoac.jpg" alt="Áo đẹp" width="100px" class="thumbnail"></div>
                                                 <div class="col-md-9">
                                                     <p><strong>Mã sản phẩm : SP01</strong></p>
                                                     <p>Tên sản phẩm :Áo Khoác Bomber Nỉ Xanh Lá Cây AK179</p>

@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::group([
     'prefix' => 'admin',
-    'namespace' => 'Admin'
+    'namespace' => 'Admin' // nằm trong thư mục admin của controller
 ], function () {
 
     // Route::group(['prefix' => 'products'], function () {
@@ -48,4 +48,23 @@ Route::group([
     Route::resource('users', 'UserController');
     Route::resource('products', 'ProductsController');
     Route::resource('category', 'CategoryController');
+});
+
+
+Route::group(['namespace' => 'client'], function () {
+    Route::get('','HomeController@index');
+    Route::get('about','HomeController@about');
+    Route::get('contact','HomeController@contact');
+
+    Route::group(['prefix' => 'cart'], function () {
+        Route::get('', 'CartController@index');
+        Route::get('checkout', 'CartController@checkout');
+        Route::get('complete', 'CartController@complete');
+    });
+
+    Route::group(['prefix' => 'product'], function () {
+        Route::get('', 'ProductController@index');
+        Route::get('{idCate}', 'ProductController@index');
+        Route::get('{idCate}/{idPrd}', 'ProductController@detail');
+    });
 });
