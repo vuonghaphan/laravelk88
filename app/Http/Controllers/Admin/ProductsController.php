@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateProductsRequest;
 
 class ProductsController extends Controller
 {
@@ -33,9 +34,18 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $r)
     {
-        //
+        $r->validate([
+            'category_id' => 'required',
+            'sku' => 'required',
+            'name' => 'required',
+            'price' => 'required',
+            'quantity' => 'required|numeric|min:0',
+            'img' => 'sometimes|image',
+        ],[
+            'sku.required' => 'lực ăn lồn trâu'
+        ]);
     }
 
     /**
@@ -67,9 +77,9 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProductsRequest $r, $id)
     {
-        //
+        return view('product');
     }
 
     /**

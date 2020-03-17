@@ -11,9 +11,18 @@
         <div class="col-xs-6 col-md-12 col-lg-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">Sửa sản phẩm</div>
+                @if($errors->any())
+                @component('admin.layouts.components.alert')
+                @slot('type', 'danger')
+                @slot('stroke', 'cancel')
+                {{ $errors->first() }}
+                @endcomponent
+                @endif
                 <div class="panel-body">
-                    <div class="row" style="margin-bottom:40px">
-
+                    <form action="/admin/products/teo" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="row" style="margin-bottom:40px">
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label>Danh mục</label>
@@ -56,7 +65,7 @@
                                         <label>Ảnh sản phẩm</label>
                                         <input id="img" type="file" name="img" class="form-control hidden"
                                             onchange="changeImg(this)">
-                                        <img id="avatar" class="thumbnail" width="100%" height="350px" src="img/import-img.png">
+                                        <img id="avatar" class="thumbnail" width="100%" height="350px" src="/assets/admin/img/import-img.png">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -65,7 +74,7 @@
                                         <textarea  name="info" style="width: 100%;height: 100px;"></textarea>
                                     </div>
                                 </div>
-                    </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -77,6 +86,7 @@
                             </div>
                         </div>
                     <div class="clearfix"></div>
+                    </form>
                 </div>
             </div>
 
