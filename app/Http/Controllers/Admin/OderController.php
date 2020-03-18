@@ -17,6 +17,6 @@ class OderController extends Controller
         return view('admin.orders.edit');
     }
     public function update(){
-
+        
     }
 }
