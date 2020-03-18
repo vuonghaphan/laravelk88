@@ -33,9 +33,12 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $r)
     {
-        //
+        $r->validate([
+            'parent_id'=>'required',
+            'name'=>'required|min:3',
+        ]);
     }
 
     /**
@@ -67,9 +70,12 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $r, $id)
     {
-        //
+        $r->validate([
+            'parent_id'=>'required',
+            'name'=>'required|min:3',
+        ]);
     }
 
     /**

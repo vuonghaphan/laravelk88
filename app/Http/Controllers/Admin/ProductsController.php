@@ -79,7 +79,7 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductsRequest $r, $id)
     {
-        return view('product');
+        return view('admin.products.index');
     }
 
     /**

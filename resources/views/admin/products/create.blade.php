@@ -11,15 +11,16 @@
         <div class="col-xs-6 col-md-12 col-lg-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">Thêm sản phẩm</div>
-                @if ($errors->any())
-                {{-- <div class="alert bg-{{ $type ?? "danger" }}" role="alert">
+                {{-- @if ($errors->any())
+                <div class="alert bg-{{ $type ?? "danger" }}" role="alert">
                     <svg class="glyph stroked {{ $stroke ?? 'cancel' }}">
                         <use xlink:href="#stroked-{{ $stroke ?? 'cancel' }}"></use>
                     </svg> {{ $errors->first() }}
                     <a href="#" class="pull-right">
                         <span class="glyphicon glyphicon-remove"></span>
                     </a>
-                </div> --}}
+                </div>--}}
+                @if ($errors->any())
                 @component('admin.layouts.components.alert')
                 @slot('type', 'danger')
                 @slot('stroke', 'cancel')

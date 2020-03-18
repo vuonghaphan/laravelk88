@@ -23,27 +23,32 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-5">
+                            @if ($errors->any())
                             @component('admin.layouts.components.alert')
                             @slot('type', 'danger')
                             @slot('stroke', 'cancel')
-                            Đã thêm danh mục thành công!
+                            {{ $errors->first() }}
                             @endcomponent
-                            <div class="form-group">
-                                <label for="">Danh mục cha:</label>
-                                <select class="form-control" name="" id="">
-                                    <option>----ROOT----</option>
-                                    <option>Nam</option>
-                                    <option>---|Áo khoác nam</option>
-                                    <option>---|---|Áo khoác nam</option>
-                                    <option>Nữ</option>
-                                    <option>---|Áo khoác nữ</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Tên Danh mục</label>
-                                <input type="text" class="form-control" name="name" id="" placeholder="Tên danh mục mới">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Thêm danh mục</button>
+                            @endif
+                            <form action="/admin/category" method="POST">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="">Danh mục cha:</label>
+                                    <select class="form-control" name="" id="parent_id">
+                                        <option>----ROOT----</option>
+                                        <option>Nam</option>
+                                        <option>---|Áo khoác nam</option>
+                                        <option>---|---|Áo khoác nam</option>
+                                        <option>Nữ</option>
+                                        <option>---|Áo khoác nữ</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Tên Danh mục</label>
+                                    <input type="text" class="form-control" name="name" id="name" placeholder="Tên danh mục mới">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Thêm danh mục</button>
+                            </form>
                         </div>
                     </div>
                 </div>

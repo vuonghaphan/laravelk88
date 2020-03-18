@@ -25,27 +25,33 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-5">
+                            @if ($errors->any())
                             @component('admin.layouts.components.alert')
-                            @slot('type', 'success')
+                            @slot('type', 'danger')
                             @slot('stroke', 'checkmark')
-                            Đã thêm danh mục thành công!
+                            {{ $errors->first() }}
                             @endcomponent
-                            <div class="form-group">
-                                <label for="">Danh mục cha:</label>
-                                <select class="form-control" name="parent" >
-                                    <option>----ROOT----</option>
-                                    <option>Nam</option>
-                                    <option>---|Áo khoác nam</option>
-                                    <option>---|---|Áo khoác nam</option>
-                                    <option selected>Nữ</option>
-                                    <option>---|Áo khoác nữ</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Tên Danh mục</label>
-                                <input type="text" class="form-control" name="name"  placeholder="Tên danh mục mới" value="Áo khoác nữ">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Sửa danh mục</button>
+                            @endif
+                            <form action="/admin/category/teo" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="form-group">
+                                    <label for="">Danh mục cha:</label>
+                                    <select class="form-control" name="parent" >
+                                        <option>----ROOT----</option>
+                                        <option>Nam</option>
+                                        <option>---|Áo khoác nam</option>
+                                        <option>---|---|Áo khoác nam</option>
+                                        <option selected>Nữ</option>
+                                        <option>---|Áo khoác nữ</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="">Tên Danh mục</label>
+                                    <input type="text" class="form-control" name="name"  placeholder="Tên danh mục mới" value="Áo khoác nữ">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Sửa danh mục</button>
+                            </form>
                         </div>
                     </div>
                 </div>

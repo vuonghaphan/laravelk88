@@ -13,11 +13,19 @@
                 <div class="panel-heading">
                     <i class="fas fa-user"></i> Thêm thành viên
                 </div>
+                @if ($errors->any())
+                @component('admin.layouts.components.alert')
+                @slot('type','danger')
+                @slot('stroke','cancel')
+                {{$errors->first()}}
+                @endcomponent
+                @endif
                 <div class="panel-body">
+                <form action="/admin/users" method="POST">
+                    @csrf
                     <div
                         class="row justify-content-center"
-                        style="margin-bottom:40px"
-                    >
+                        style="margin-bottom:40px">
                         <div class="col-md-8 col-lg-8 col-lg-offset-2">
                             <div class="form-group">
                                 <label>Email</label>
@@ -84,7 +92,7 @@
                             </div>
                         </div>
                     </div>
-
+                </form>
                     <div class="clearfix"></div>
                 </div>
             </div>
