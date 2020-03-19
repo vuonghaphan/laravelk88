@@ -50,7 +50,7 @@ Route::group([
     Route::resource('category', 'CategoryController');
 });
 
-
+    
 Route::group(['namespace' => 'client'], function () {
     Route::get('','HomeController@index');
     Route::get('about','HomeController@about');
