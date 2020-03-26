@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateProductsRequest;
+use Illuminate\Support\Facades\DB;
 
 class ProductsController extends Controller
 {
@@ -15,7 +16,13 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return view('admin.products.index');
+        DB::table('products')->whereSku('akm01')->update([
+            'category_id'=> '22',
+            ]);
+        $product = DB::table('products')->get();
+        return view('admin.products.index',[
+            'prd' => $product
+        ]);
     }
 
     /**

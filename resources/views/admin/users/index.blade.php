@@ -31,7 +31,7 @@
                                 <svg class="glyph stroked checkmark">
                                     <use
                                         xlink:href="#stroked-checkmark"
-                                    ></use></svg>s
+                                    ></use></svg>
                                 Đã thêm thành công<a
                                     href="#"
                                     class="pull-right"
@@ -41,7 +41,7 @@
                                 ></a>
                             </div>
                             <a
-                                href="adduser.html"
+                                href="users/create"
                                 class="btn btn-primary"
                                 >Thêm Thành viên</a
                             >
@@ -61,12 +61,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($users as $row)
                                     <tr>
-                                        <td>1</td>
-                                        <td>Admin@gmail.com</td>
-                                        <td>Nguyễn thế phúc</td>
-                                        <td>Thường tín</td>
-                                        <td>0356653300</td>
+                                        <td>{{$row->id ?? ''}}</td>
+                                        <td>{{$row->email ?? ''}}</td>
+                                        <td>{{$row->name ?? ''}}</td>
+                                        <td>{{$row->address ?? ''}}</td>
+                                        <td>{{$row->phone ?? ''}}</td>
                                         <td>1</td>
                                         <td>
                                             <a
@@ -89,34 +90,7 @@
                                             >
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Admin@gmail.com</td>
-                                        <td>Nguyễn thế phúc</td>
-                                        <td>Thường tín</td>
-                                        <td>0356653300</td>
-                                        <td>1</td>
-                                        <td>
-                                            <a
-                                                href="#"
-                                                class="btn btn-warning"
-                                                ><i
-                                                    class="fa fa-pencil"
-                                                    aria-hidden="true"
-                                                ></i>
-                                                Sửa</a
-                                            >
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger"
-                                                ><i
-                                                    class="fa fa-trash"
-                                                    aria-hidden="true"
-                                                ></i>
-                                                Xóa</a
-                                            >
-                                        </td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             <div align="right">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -16,7 +17,34 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index');
+        DB::table('users')->whereName('luc lon')->update([
+            'name'=>'luc an lon',
+            'email'=> 'lucanlon@gmail.com'
+        ]);
+        DB::table('users')->whereName('teoo')->update([
+            'address'=>'vinh',
+            'phone'=> '123456'
+        ]);
+        DB::table('users')->whereName('bom')->update([
+            'address'=>'vinh',
+            'phone'=> '123456'
+        ]);
+        $users = DB::table('users')->get();
+        // $users = DB::table('users')->select(['name'])->get(); // lay ra cot name
+        // $users = DB::table('users')->skip('1')->take('3')->get(); // bỏ qua 1 lấy ra 3
+        // print_r($users);
+        // DB::table('users')->insert([
+        //     'name' => 'teo',
+        //     'email' => 'teo@gmai.com',
+        //     'password' => '1234'
+        // ]);
+        // $u = DB::table('users')->where('email','=','teo@gmai.com')->first();
+        // print_r($u);
+
+        debugbar()->info($users);
+        return view('admin.users.index',[
+            'users' => $users
+        ]);
     }
 
     /**
