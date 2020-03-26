@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entities\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUserRequest;
@@ -29,7 +30,7 @@ class UserController extends Controller
             'address'=>'vinh',
             'phone'=> '123456'
         ]);
-        $users = DB::table('users')->get();
+        $users = User::select(['id','name','email']);
         // $users = DB::table('users')->select(['name'])->get(); // lay ra cot name
         // $users = DB::table('users')->skip('1')->take('3')->get(); // bỏ qua 1 lấy ra 3
         // print_r($users);

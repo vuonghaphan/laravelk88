@@ -34,8 +34,8 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="">Danh mục cha:</label>
-                                    <select class="form-control" name="" id="parent_id">
-                                        <option>----ROOT----</option>
+                                    <select class="form-control" name="parent_id" id="">
+                                        <option value="0" selected>----ROOT----</option>
                                         <option>Nam</option>
                                         <option>---|Áo khoác nam</option>
                                         <option>---|---|Áo khoác nam</option>

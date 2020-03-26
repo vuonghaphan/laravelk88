@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entities\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateProductsRequest;
@@ -53,6 +54,23 @@ class ProductsController extends Controller
         ],[
             'sku.required' => 'lực ăn lồn trâu'
         ]);
+
+        $input = $r->only([
+            'category_id',
+            'sku',
+            'name',
+            'price',
+            'quantity',
+            'img',
+            'detail',
+            'description',
+            'featured',
+        ]);
+        //input = $r->only chỉ được phép gửi dữ liệu những ô mình chọn trong hàm only (a tùng ăn lol)
+
+        print_r($input);
+        $product = Product::create($input);
+        return redirect("admin/products/{$product->id}/edit");
     }
 
     /**
@@ -72,9 +90,11 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit($product)
     {
-        return view('admin.products.edit');
+        $product = Product::findOrFail($product); //finOrFail tìm $product trong DB, nếu thấy thì lưu vào $product, k thì trả về 404
+        return view('admin.products.edit', compact('product'));
+        // return view('admin.products.edit', ['product' => $product ])); : compact giống như này
     }
 
     /**
@@ -84,7 +104,7 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductsRequest $r, $id)
+    public function update(UpdateProductsRequest $r, $product)
     {
         return view('admin.products.index');
     }

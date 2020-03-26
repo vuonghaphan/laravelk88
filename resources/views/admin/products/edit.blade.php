@@ -19,7 +19,7 @@
                 @endcomponent
                 @endif
                 <div class="panel-body">
-                    <form action="/admin/products/teo" method="POST" enctype="multipart/form-data">
+                <form action="/admin/products/{{$row->id}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="row" style="margin-bottom:40px">

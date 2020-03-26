@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entities\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.categories.index');
+        $cate['cat'] = Category::orderBy('id','desc')->get();
+        return view('admin.categories.index',$cate);
+        // return view('admin.categories.index');
     }
 
     /**
@@ -39,6 +42,11 @@ class CategoryController extends Controller
             'parent_id'=>'required',
             'name'=>'required|min:3',
         ]);
+        $category = new Category();
+        $category->name = $r->name;
+        $category->parent_id = $r->parent_id;
+        $category->save();
+
     }
 
     /**

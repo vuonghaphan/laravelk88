@@ -36,7 +36,7 @@ Route::group([
     Route::post('login','LoginController@login');
     Route::post('logout','LoginController@logout');
 
-    Route::get('','DashboardController');
+    Route::get('','DashboardController')->name('dashboard');
 
     Route::group(['prefix' => 'orders'
 ], function () {
@@ -50,7 +50,7 @@ Route::group([
     Route::resource('category', 'CategoryController');
 });
 
-    
+
 Route::group(['namespace' => 'client'], function () {
     Route::get('','HomeController@index');
     Route::get('about','HomeController@about');
