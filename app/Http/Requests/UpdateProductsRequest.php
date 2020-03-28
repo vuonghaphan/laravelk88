@@ -32,4 +32,10 @@ class UpdateProductsRequest extends FormRequest
             'img' => 'sometimes|image',
         ];
     }
+    public function messages()
+    {
+        return[
+            'category_id.required' => 'không được trống'
+        ];
+    }
 }

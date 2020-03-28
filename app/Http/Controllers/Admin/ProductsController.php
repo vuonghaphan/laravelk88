@@ -106,7 +106,24 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductsRequest $r, $product)
     {
-        return view('admin.products.index');
+        $input = $r->only([
+            'category_id',
+            'sku',
+            'name',
+            'price',
+            'quantity',
+            'img',
+            'detail',
+            'description',
+            'featured',
+        ]);
+        //input = $r->only chỉ được phép gửi dữ liệu những ô mình chọn trong hàm only (a tùng ăn lol)
+
+        // print_r($input);
+        $product = Product::findOrFail($product);
+        $product->fill($input);
+        $product->save();
+        return back();
     }
 
     /**
