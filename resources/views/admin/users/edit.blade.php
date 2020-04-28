@@ -56,7 +56,7 @@
                                     <label>Full name</label>
                                     <input
                                         type="full"
-                                        name="full"
+                                        name="name"
                                         class="form-control"
                                         value="{{$users->name}}"
                                     />

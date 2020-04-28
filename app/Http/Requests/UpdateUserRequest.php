@@ -25,16 +25,16 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'email'=>'required|email|unique:users',
-            'password'=>'required|confirmed',
+            'password'=>'required|',
             'name'=>'required|min:4',
-            'address'=>'required|digits_between:5,20',
+            'address'=>'required|min:5',
             'phone'=>'required|numeric',
         ];
     }
     public function messages()
     {
         return [
-            'email.required' => 'Email không được để trống',
+            'email' => 'Email không được để trống',
         ];
     }
 }
