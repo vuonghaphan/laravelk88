@@ -23,7 +23,7 @@
                 @endif
 
                 <div class="panel-body">
-                    <form action="/admin/users/teo" method="POST">
+                    <form action="/admin/users/{{$users->id}}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row justify-content-center" style="margin-bottom:40px">
@@ -34,7 +34,7 @@
                                         type="text"
                                         name="email"
                                         class="form-control"
-                                        value="admin@gmail.com"
+                                        value="{{$users->email}}"
                                     />
                                     <div
                                         class="alert alert-danger"
@@ -49,7 +49,7 @@
                                         type="text"
                                         name="password"
                                         class="form-control"
-                                        value="123456"
+                                        value="{{$users->password}}"
                                     />
                                 </div>
                                 <div class="form-group">
@@ -58,7 +58,7 @@
                                         type="full"
                                         name="full"
                                         class="form-control"
-                                        value="Nguyễn thế phúc"
+                                        value="{{$users->name}}"
                                     />
                                 </div>
                                 <div class="form-group">
@@ -67,7 +67,7 @@
                                         type="address"
                                         name="address"
                                         class="form-control"
-                                        value="Thường tín"
+                                        value="{{$users->address}}"
                                     />
                                 </div>
                                 <div class="form-group">
@@ -76,7 +76,7 @@
                                         type="phone"
                                         name="phone"
                                         class="form-control"
-                                        value="0356653300"
+                                        value="{{$users->phone}}"
                                     />
                                 </div>
 

@@ -41,7 +41,7 @@
                                 ></a>
                             </div>
                             <a
-                                href="users/create"
+                                href="/admin/users/create"
                                 class="btn btn-primary"
                                 >Thêm Thành viên</a
                             >

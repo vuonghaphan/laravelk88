@@ -46,26 +46,26 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Mã sản phẩm</label>
-                                        <input type="text" name="sku" class="form-control">
+                                    <input type="text" name="sku" value="{{old('sku')}}" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Tên sản phẩm</label>
-                                        <input type="text" name="name" class="form-control">
+                                        <input type="text" name="name" value="{{old('name')}}" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Giá sản phẩm (Giá chung)</label>
-                                        <input type="number" name="price" class="form-control">
+                                        <input type="number" name="price" value="{{old('price')}}" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Sản phẩm có nổi bật</label>
-                                        <select name="featured" class="form-control">
+                                        <select name="featured" value="{{old('featured')}}" class="form-control">
                                             <option value="0">Không</option>
                                             <option value="1">Có</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Số Lượng</label>
-                                        <input type="number" class="form-control" name="quantity">
+                                        <input type="number" class="form-control" value="{{old('quantity')}}" name="quantity">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -79,7 +79,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Thông tin</label>
-                                        <textarea name="detail" style="width: 100%;height: 100px;"></textarea>
+                                        <textarea name="detail" style="width: 100%;height: 100px;">{{old('detail')}}</textarea>
                                     </div>
                                  </div>
                             </div>
@@ -87,7 +87,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Miêu tả</label>
-                                    <textarea id="editor" name="description" style="width: 100%;height: 100px;"></textarea>
+                                    <textarea id="editor" name="description" style="width: 100%;height: 100px;">{{old('description')}}</textarea>
                                 </div>
                                 <button class="btn btn-success" type="submit">Thêm sản phẩm</button>
                                 <button class="btn btn-danger" type="reset">Huỷ bỏ</button>

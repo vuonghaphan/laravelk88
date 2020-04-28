@@ -18,19 +18,19 @@ class UserController extends Controller
      */
     public function index()
     {
-        DB::table('users')->whereName('luc lon')->update([
-            'name'=>'luc an lon',
-            'email'=> 'lucanlon@gmail.com'
-        ]);
-        DB::table('users')->whereName('teoo')->update([
-            'address'=>'vinh',
-            'phone'=> '123456'
-        ]);
-        DB::table('users')->whereName('bom')->update([
-            'address'=>'vinh',
-            'phone'=> '123456'
-        ]);
-        $users = User::select(['id','name','email']);
+        // DB::table('users')->whereName('luc lon')->update([
+        //     'name'=>'luc an lon',
+        //     'email'=> 'lucanlon@gmail.com'
+        // ]);
+        // DB::table('users')->whereName('teoo')->update([
+        //     'address'=>'vinh',
+        //     'phone'=> '123456'
+        // ]);
+        // DB::table('users')->whereName('bom')->update([
+        //     'address'=>'vinh',
+        //     'phone'=> '123456'
+        // ]);
+        $users = User::orderBy('id','desc')->get();
         // $users = DB::table('users')->select(['name'])->get(); // lay ra cot name
         // $users = DB::table('users')->skip('1')->take('3')->get(); // bỏ qua 1 lấy ra 3
         // print_r($users);
@@ -66,7 +66,16 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $r)
     {
-        //
+        $input = $r->only([
+            'name',
+            'email',
+            'password',
+            'phone',
+            'address',
+        ]);
+        // print_r($input);
+        $users = User::create($input);
+        return redirect("admin/users/{$users->id}/edit");
     }
 
     /**
@@ -86,9 +95,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($users)
     {
-        return view('admin.users.edit');
+        $users = User::findOrFail($users);
+        return view('admin.users.edit', compact('users'));
     }
 
     /**
@@ -98,9 +108,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $r, $id)
+    public function update(UpdateUserRequest $r, $users)
     {
-        //
+        $input = $r->only([
+            'name',
+            'email',
+            'password',
+            'address',
+            'phone',
+        ]);
+        $users = User::findOrFail($users);
+        $users->fill($input);
+        $users->save();
+        return back();
     }
 
     /**

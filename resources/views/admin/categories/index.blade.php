@@ -25,10 +25,9 @@
                         <div class="col-md-7">
 
                             <h3 style="margin: 0;"><strong>Phân cấp Menu</strong></h3>
-                            <a href="/admin/category/create" class="btn btn-primary">Thêm danh muc</a>
-                            @foreach ($cat as $row)
                             <div class="vertical-menu">
                                 <div class="item-menu active">Danh mục </div>
+                                @foreach ($cat as $row)
                                 <div class="item-menu"><span>{{ $row->name }}</span>
                                     <div class="category-fix">
                                         <a class="btn-category btn-primary" href="editcategory.html"><i
@@ -37,7 +36,7 @@
 
                                     </div>
                                 </div>
-                            @endforeach
+                                @endforeach
 
                                 {{-- <div class="item-menu"><span>---|Áo khoác Nam</span>
                                     <div class="category-fix">
@@ -71,7 +70,12 @@
 
                                     </div>
                                 </div> --}}
-
+                                <a href="/admin/category/create" class="btn btn-primary">Thêm danh muc</a>
+                                <div align='right'>
+                                    <ul class="pagination">
+                                        {{$cat->links()}}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

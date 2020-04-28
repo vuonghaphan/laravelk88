@@ -72,7 +72,8 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Thông tin</label>
-                                    <textarea  name="detail" style="width: 100%;height: 100px;"></textarea>
+                                <textarea  name="detail" style="width: 100%;height: 100px;">{{$product->detail}}
+                                    </textarea>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +81,7 @@
                             <div class="col-md-12">
                             <div class="form-group">
                                 <label>Miêu tả</label>
-                                <textarea id="editor"  name="description" style="width: 100%;height: 100px;"></textarea>
+                                <textarea id="editor"  name="description" style="width: 100%;height: 100px;">{{$product->description}}</textarea>
                             </div>
                             <button class="btn btn-success" type="submit">Sửa sản phẩm</button>
                             <button class="btn btn-danger" type="reset">Huỷ bỏ</button>

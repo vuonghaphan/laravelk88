@@ -39,18 +39,18 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label>password</label>
-                                <input
-                                    type="text"
-                                    name="password"
-                                    class="form-control"
-                                />
-                            </div>
-                            <div class="form-group">
+                                <div class="form-group">
+                                    <label>password</label>
+                                    <input
+                                        type="text"
+                                        name="password"
+                                        class="form-control"
+                                    />
+                                </div>
                                 <label>Full name</label>
                                 <input
-                                    type="full"
-                                    name="full"
+                                    type="name"
+                                    name="name"
                                     class="form-control"
                                 />
                             </div>
@@ -73,8 +73,8 @@
 
                             <div class="form-group">
                                 <label>Level</label>
-                                <select name="level" class="form-control">
-                                    <option value="1">admin</option>
+                                <select class="form-control">
+                                    <option value="1" selected>admin</option>
                                     <option selected value="2">user</option>
                                 </select>
                             </div>
