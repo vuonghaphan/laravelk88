@@ -32,23 +32,19 @@
                             {{ $errors->first() }}
                             @endcomponent
                             @endif
-                            <form action="/admin/category/teo" method="POST">
+                            <form action="/admin/category/{{ $category->id }}" method="POST">
                                 @csrf
                                 @method('PUT')
                                 <div class="form-group">
                                     <label for="">Danh mục cha:</label>
                                     <select class="form-control" name="parent_id" >
                                         <option value="0" selected>----ROOT----</option>
-                                        <option>Nam</option>
-                                        <option>---|Áo khoác nam</option>
-                                        <option>---|---|Áo khoác nam</option>
-                                        <option >Nữ</option>
-                                        <option>---|Áo khoác nữ</option>
+                                        @include('admin.categories.option', ['level' => 0])
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Tên Danh mục</label>
-                                    <input type="text" class="form-control" name="name"  placeholder="Tên danh mục mới" value="Áo khoác nữ">
+                                    <input type="text" class="form-control" name="name"  placeholder="Tên danh mục mới" value="{{$category->name}}">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Sửa danh mục</button>
                             </form>

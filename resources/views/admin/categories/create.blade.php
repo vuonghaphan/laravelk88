@@ -36,11 +36,13 @@
                                     <label for="">Danh mục cha:</label>
                                     <select class="form-control" name="parent_id" id="">
                                         <option value="0" selected>----ROOT----</option>
-                                        <option>Nam</option>
+                                        @include('admin.categories.option', ['level' => 0])
+
+                                        {{-- <option>Nam</option>
                                         <option>---|Áo khoác nam</option>
                                         <option>---|---|Áo khoác nam</option>
                                         <option>Nữ</option>
-                                        <option>---|Áo khoác nữ</option>
+                                        <option>---|Áo khoác nữ</option> --}}
                                     </select>
                                 </div>
                                 <div class="form-group">

@@ -54,7 +54,6 @@ class ProductsController extends Controller
         ],[
             'sku.required' => 'lực ăn lồn trâu'
         ]);
-
         $input = $r->only([
             'category_id',
             'sku',

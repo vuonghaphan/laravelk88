@@ -13,11 +13,23 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cate['cat'] = Category::orderBy('id','desc')->paginate(4);
-        return view('admin.categories.index',$cate);
-        // return view('admin.categories.index');
+        $categories = $this->getSubCategories(0);
+        return view('admin.categories.index',[
+            'categories' => $categories
+        ]);
+    }
+
+    private function getSubCategories($parentId, $ignoreId = null){
+        $categories = Category::whereParentId($parentId)
+        ->where('id','<>',$ignoreId)
+        ->get();
+        $categories->map(function ($category) use($ignoreId) {
+            $category->sub = $this->getSubCategories($category->id, $ignoreId);
+            return $category;
+        });
+        return $categories;
     }
 
     /**
@@ -27,7 +39,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        $categories = $this->getSubCategories(0);
+        return view('admin.categories.create', compact('categories'));
     }
 
     /**
@@ -46,6 +59,7 @@ class CategoryController extends Controller
         $category->name = $r->name;
         $category->parent_id = $r->parent_id;
         $category->save();
+        return redirect('/admin/category');
 
     }
 
@@ -68,7 +82,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.categories.edit');
+        $category = Category::findOrFail($id);
+        $categories = $this->getSubCategories(0, $id);
+        return view('admin.categories.edit',compact('category', 'categories')) ;
     }
 
     /**
@@ -78,12 +94,16 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $r, $id)
+    public function update(Request $r, $category)
     {
         $r->validate([
             'parent_id'=>'required',
             'name'=>'required|min:3',
         ]);
+        // print_r($category);die;
+        $category->fill($r->only(['parent_id','name']));
+        $category->save;
+        return back()->with('success','category update.');
     }
 
     /**
