@@ -45,31 +45,33 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($prd as $row)
+                                    @forelse ($prd as $row)
                                     <tr>
                                     <td>{{ $row->id}}</td>
                                         <td>
                                             <div class="row">
-                                                <div class="col-md-3"><img src="/assets/admin/img/ao-khoac.jpg" alt="Áo đẹp" width="100px" class="thumbnail"></div>
+                                                <div class="col-md-3"><img src="{{ $row->avatar }}" alt="{{ $row->name }}" width="100px" class="thumbnail"></div>
                                                 <div class="col-md-9">
                                                     <p><strong>Mã sản phẩm : {{ $row->sku}}</strong></p>
                                                     <p>{{ $row->name}}</p>
-
-
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>{{ $row->price}} VND</td>
+                                        <td>{{ number_format($row->price)}} VND</td>
                                         <td>
-                                            <a class="btn btn-success" href="#" role="button">Còn hàng</a>
+                                            <a class="btn btn-{{ $row->quantity>0?'success':'danger' }}" href="#" role="button">{{$row->quantity>0? 'Còn hàng':'Hết hàng'}}</a>
                                         </td>
                                         <td>{{ $row->category_id}}</td>
                                         <td>
-                                            <a href="#" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</a>
-                                            <a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</a>
+                                            <a href="/admin/products/{{$row->id}}/edit" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</a>
+                                            <a href="/admin/products/{{$row->id}}" class="btn btn-danger btn-destroy"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</a>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    @empty
+                                        <tr>
+                                            <td colspan="6"> khong co ban ghi</td>
+                                        </tr>
+                                    @endforelse
 
                                     {{-- <tr>
                                         <td>1</td>
@@ -104,7 +106,31 @@
                 </div>
             </div>
             <!--/.row-->
+
         </div>
     </div>
 </div>
 @endsection
+@push('adminjs')
+<script>
+    $(document).ready(function(){
+        // console.log('im in')
+        $(".btn-destroy").on("click", function(e){
+            e.preventDefault()
+            if(confirm("Bạn có muốn xóa?")){
+                $.ajax({
+                    url:$(this).attr('href'),
+                    method: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        _method: "DELETE"
+                    },
+                    success: function(){
+                        window.location.reload()
+                    }
+                })
+            }
+        })
+    })
+</script>
+@endpush

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateProductsRequest;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Mime\Message;
 
 class ProductsController extends Controller
 {
@@ -60,14 +61,17 @@ class ProductsController extends Controller
             'name',
             'price',
             'quantity',
-            'img',
             'detail',
             'description',
             'featured',
         ]);
         //input = $r->only chỉ được phép gửi dữ liệu những ô mình chọn trong hàm only (a tùng ăn lol)
-
-        print_r($input);
+        if($r->hasFile('img')){
+            $imgName = uniqid('vietprok88') .".". $r->img->getClientOriginalExtension(); // lấy ra phần mở rộng file
+            $destinationDir = public_path('file/img/products/'); // cho đường dẫn ảnh trên ổ cứng
+            $r->img->move($destinationDir , $imgName);
+            $input['avatar'] = asset("file/img/products/{$imgName}"); //cho đường dẫn ảnh trên trinh duyệt
+        }
         $product = Product::create($input);
         return redirect("admin/products/{$product->id}/edit");
     }
@@ -105,24 +109,23 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductsRequest $r, $product)
     {
-        $input = $r->only([
-            'category_id',
-            'sku',
-            'name',
-            'price',
-            'quantity',
-            'img',
-            'detail',
-            'description',
-            'featured',
-        ]);
-        //input = $r->only chỉ được phép gửi dữ liệu những ô mình chọn trong hàm only (a tùng ăn lol)
+        // $input = $r->only([
+        //     'category_id',
+        //     'sku',
+        //     'name',
+        //     'price',
+        //     'quantity',
+        //     'detail',
+        //     'description',
+        //     'featured',
+        // ]);
+        // //input = $r->only chỉ được phép gửi dữ liệu những ô mình chọn trong hàm only (a tùng ăn lol)
 
-        // print_r($input);
-        $product = Product::findOrFail($product);
-        $product->fill($input);
-        $product->save();
-        return back();
+        // // print_r($input);
+        // $product = Product::findOrFail($product);
+        // $product->fill($input);
+        // $product->save();
+        // return back();
     }
 
     /**
@@ -131,8 +134,22 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($product)
     {
-        //
+        $deleted = Product::destroy($product);
+        if($deleted){
+            return response()->json([],204);
+        }
+        return response()->json(['Message' => "Sản phẩm cần xóa không tồn tại"],404);
+    }
+    private function getSubCategories($parentId, $ignoreId = null){
+        $categories = Category::whereParentId($parentId)
+        ->where('id','<>',$ignoreId)
+        ->get();
+        $categories->map(function ($category) use($ignoreId) {
+            $category->sub = $this->getSubCategories($category->id, $ignoreId);
+            return $category;
+        });
+        return $categories;
     }
 }

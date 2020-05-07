@@ -12,7 +12,7 @@ class Product extends Model
         'name',
         'price',
         'quantity',
-        'img',
+        'avatar',
         'detail',
         'description',
         'featured',
