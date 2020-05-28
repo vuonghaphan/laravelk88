@@ -30,7 +30,7 @@ class UserController extends Controller
         //     'address'=>'vinh',
         //     'phone'=> '123456'
         // ]);
-        $users = User::orderBy('id','desc')->get();
+        $users = User::with('roles')->orderBy('id','desc')->paginate(5);
         // $users = DB::table('users')->select(['name'])->get(); // lay ra cot name
         // $users = DB::table('users')->skip('1')->take('3')->get(); // bỏ qua 1 lấy ra 3
         // print_r($users);
@@ -72,10 +72,11 @@ class UserController extends Controller
             'password',
             'phone',
             'address',
+            'level'
         ]);
         // print_r($input);
         $users = User::create($input);
-        return redirect("admin/users/{$users->id}/edit");
+        return redirect("admin/users");
     }
 
     /**

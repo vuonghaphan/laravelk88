@@ -37,12 +37,10 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label>Danh mục</label>
-                                        <select name="category_id" class="form-control">
-                                            <option value='1' selected>Nam</option>
-                                            <option value='3'>---|Áo khoác nam</option>
-                                            <option value='2'>Nữ</option>
-                                            <option value='4'>---|Áo khoác nữ</option>
-                                        </select>
+                                    <select class="form-control" name="parent_id" id="">
+                                        <option value="0" selected>----ROOT----</option>
+                                        @include('admin.categories.option', ['level' => 0])
+                                    </select>
                                     </div>
                                     <div class="form-group">
                                         <label>Mã sản phẩm</label>

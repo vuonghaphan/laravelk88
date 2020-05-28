@@ -61,7 +61,7 @@
                                         <td>
                                             <a class="btn btn-{{ $row->quantity>0?'success':'danger' }}" href="#" role="button">{{$row->quantity>0? 'Còn hàng':'Hết hàng'}}</a>
                                         </td>
-                                        <td>{{ $row->category_id}}</td>
+                                        <td>{{ optional($row->category)->name }}</td>
                                         <td>
                                             <a href="/admin/products/{{$row->id}}/edit" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> Sửa</a>
                                             <a href="/admin/products/{{$row->id}}" class="btn btn-danger btn-destroy"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</a>
@@ -96,7 +96,7 @@
                                             <a href="#" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Xóa</a>
                                         </td>
                                     </tr> --}}
-
+                                    
                                 </tbody>
                             </table>
                         </div>

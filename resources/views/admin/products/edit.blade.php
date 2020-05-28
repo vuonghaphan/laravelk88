@@ -81,7 +81,9 @@
                             <div class="col-md-12">
                             <div class="form-group">
                                 <label>Miêu tả</label>
-                                <textarea id="editor"  name="description" style="width: 100%;height: 100px;">{{$product->description}}</textarea>
+                                <textarea id="editor"  name="description" style="width: 100%;height: 100px;">
+                                    {{$product->category->name}}
+                                </textarea>
                             </div>
                             <button class="btn btn-success" type="submit">Sửa sản phẩm</button>
                             <button class="btn btn-danger" type="reset">Huỷ bỏ</button>

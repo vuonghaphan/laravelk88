@@ -60,7 +60,6 @@ class CategoryController extends Controller
         $category->parent_id = $r->parent_id;
         $category->save();
         return redirect('/admin/category');
-
     }
 
     /**
@@ -83,6 +82,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
+        $category->products()->get();
         $categories = $this->getSubCategories(0, $id);
         return view('admin.categories.edit',compact('category', 'categories')) ;
     }
@@ -101,9 +101,11 @@ class CategoryController extends Controller
             'name'=>'required|min:3',
         ]);
         // print_r($category);die;
-        $category->fill($r->only(['parent_id','name']));
-        $category->save;
-        return back()->with('success','category update.');
+        $input = $r->only(['parent_id','name']);
+        $category = Category::findOrFail($category);
+        $category->fill($input);
+        $category->save();
+        return back();
     }
 
     /**

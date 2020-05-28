@@ -17,10 +17,16 @@
 			<div class="login-panel panel panel-default">
 				<div class="panel-heading">Log in</div>
 				<div class="panel-body">
-					<form role="form">
+                    <form role="form" action="/admin/login" method="POST">
+                        @csrf
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            {{$errors->first()}}
+                        </div>
+                        @endif
 						<fieldset>
 							<div class="form-group">
-								<input class="form-control" placeholder="E-mail" name="email" type="email" autofocus="">
+                                <input class="form-control" placeholder="E-mail" name="email" value="{{ old('email') }}" type="email" autofocus="">
 							</div>
 							<div class="form-group">
 								<input class="form-control" placeholder="Password" name="password" type="password" value="">
@@ -30,13 +36,12 @@
 									<input name="remember" type="checkbox" value="Remember Me">Remember Me
 								</label>
 							</div>
-							<a href="index.html" class="btn btn-primary">Login</a>
-						</fieldset>
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </fieldset>
 					</form>
 				</div>
 			</div>
 		</div><!-- /.col-->
 	</div><!-- /.row -->
 </body>
-
 </html>

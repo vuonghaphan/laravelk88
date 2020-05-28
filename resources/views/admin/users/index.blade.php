@@ -68,7 +68,7 @@
                                         <td>{{$row->name ?? ''}}</td>
                                         <td>{{$row->address ?? ''}}</td>
                                         <td>{{$row->phone ?? ''}}</td>
-                                        <td>1</td>
+                                        <td>{{ ($row->roles)->pluck('name')->implode(',') ?? '' }}</td>
                                         <td>
                                             <a
                                                 href="#"
@@ -95,31 +95,7 @@
                             </table>
                             <div align="right">
                                 <ul class="pagination">
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"
-                                            >Trở lại</a
-                                        >
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"
-                                            >1</a
-                                        >
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"
-                                            >2</a
-                                        >
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"
-                                            >3</a
-                                        >
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#"
-                                            >tiếp theo</a
-                                        >
-                                    </li>
+                                    {{ $users->links()}}
                                 </ul>
                             </div>
                         </div>

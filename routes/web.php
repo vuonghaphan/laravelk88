@@ -31,24 +31,28 @@ Route::group([
     //     Route::delete('{idProduct}', 'ProductController@destroy');
     //     Route::get('{idProduct}', 'ProductController@show');
     // });
-
-    Route::get('login','LoginController@showLoginForm');
-    Route::post('login','LoginController@login');
-    Route::post('logout','LoginController@logout');
-
-    Route::get('','DashboardController')->name('dashboard');
-
-    Route::group(['prefix' => 'orders'
-], function () {
-    Route::get('','OderController@index');
-    Route::get('processed','OderController@processed');
-    Route::get('{idprd}/edit','OderController@edit');
-    Route::put('{idprd}','OderController@update');
+    Route::group(['middleware' => 'guest'], function () {
+        Route::get('login','LoginController@showLoginForm')->name('admin.login');
+        Route::post('login','LoginController@login');
     });
-    Route::resource('users', 'UserController');
-    Route::resource('products', 'ProductsController');
-    Route::resource('category', 'CategoryController');
+
+    Route::group(['middleware' => 'auth'], function () {
+        Route::post('logout','LoginController@logout');
+
+        Route::get('','DashboardController')->name('dashboard');
+
+        Route::group(['prefix' => 'orders'], function () {
+            Route::get('','OderController@index');
+            Route::get('processed','OderController@processed');
+            Route::get('{idprd}/edit','OderController@edit');
+            Route::put('{idprd}','OderController@update');
+        });
+        Route::resource('users', 'UserController');
+        Route::resource('products', 'ProductsController');
+        Route::resource('category', 'CategoryController');
+    });
 });
+
 
 
 Route::group(['namespace' => 'client'], function () {

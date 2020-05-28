@@ -78,6 +78,8 @@
                                 </div> --}}
                                 @include('admin.categories.row',['level' => 0 ])
                             </div>
+                            <a
+                                href="/admin/category/create" class="btn btn-primary" >Thêm Danh Mục</a>
                         </div>
                     </div>
                 </div>

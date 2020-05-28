@@ -34,9 +34,6 @@
                                     name="email"
                                     class="form-control"
                                 />
-                                <div class="alert alert-danger" role="alert">
-                                    <strong>email đã tồn tại!</strong>
-                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-group">
@@ -73,8 +70,8 @@
 
                             <div class="form-group">
                                 <label>Level</label>
-                                <select class="form-control">
-                                    <option value="1" selected>admin</option>
+                                <select class="form-control" name="level">
+                                    <option value="1" selected>{{}}</option>
                                     <option selected value="2">user</option>
                                 </select>
                             </div>

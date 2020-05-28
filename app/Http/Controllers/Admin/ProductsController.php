@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Entities\Category;
 use App\Entities\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -18,10 +19,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        DB::table('products')->whereSku('akm01')->update([
-            'category_id'=> '22',
-            ]);
-        $product = DB::table('products')->get();
+        $product = Product::with('category')->get();
         return view('admin.products.index',[
             'prd' => $product
         ]);
@@ -34,9 +32,10 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        return view('admin.products.create');
-    }
+        $categories = $this->getSubCategories(0);
 
+        return view('admin.products.create',compact ('categories'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -109,23 +108,23 @@ class ProductsController extends Controller
      */
     public function update(UpdateProductsRequest $r, $product)
     {
-        // $input = $r->only([
-        //     'category_id',
-        //     'sku',
-        //     'name',
-        //     'price',
-        //     'quantity',
-        //     'detail',
-        //     'description',
-        //     'featured',
-        // ]);
-        // //input = $r->only chỉ được phép gửi dữ liệu những ô mình chọn trong hàm only (a tùng ăn lol)
+        $input = $r->only([
+            'category_id',
+            'sku',
+            'name',
+            'price',
+            'quantity',
+            'detail',
+            'description',
+            'featured',
+        ]);
+        //input = $r->only chỉ được phép gửi dữ liệu những ô mình chọn trong hàm only (a tùng ăn lol)
 
-        // // print_r($input);
-        // $product = Product::findOrFail($product);
-        // $product->fill($input);
-        // $product->save();
-        // return back();
+        // print_r($input);
+        $product = Product::findOrFail($product);
+        $product->fill($input);
+        $product->save();
+        return back();
     }
 
     /**
