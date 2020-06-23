@@ -59,6 +59,7 @@ class CategoryController extends Controller
         $category->name = $r->name;
         $category->parent_id = $r->parent_id;
         $category->save();
+        session()->flash('success','Đã tạo mới');
         return redirect('/admin/category');
     }
 
@@ -105,7 +106,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($category);
         $category->fill($input);
         $category->save();
-        return back();
+        return redirect('/admin/category')->with('success','Đã cập nhật');
     }
 
     /**

@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Entities\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     public function index(){
-        return view('client.product.index');
+        $products = Product::paginate();
+        return view('client.product.index',compact('products'));
     }
-    public function detail(){
-        return view('client.product.detail');
+    public function detail($category,$product){
+        $products = Product::findOrFail($product);
+        return view('client.product.detail', compact('products'));
     }
 }

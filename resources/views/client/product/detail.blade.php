@@ -8,24 +8,22 @@
                     <div class="row">
                         <div class="col-md-5">
                             <div class="product-entry">
-                                <div class="product-img" style="background-image: url(/assets/client/images/ao-so-mi-trang-kem-asm836-8193.jpg);">
+                                <div class="product-img" style="background-image: url({{ $products->avatar }});">
 
                                 </div>
 
                             </div>
                         </div>
                         <div class="col-md-7">
-                            <form action="product/AddCart" method="post">
-
+                            <form action="" method="post">
                                 <div class="desc">
-                                    <h3>Áo Sơ Mi Trắng Kem ASM844</h3>
+                                    <h3>{{ $products->name }}</h3>
                                     <p class="price">
-                                        <span>150,000 đ</span>
+                                        <span>{{ number_format($products->price) }} đ</span>
                                     </p>
                                     <p>thông tin</p>
                                     <p style="text-align: justify;">
                                         VIETPRO STORE sẽ giao hàng tận nơi khi chọn mua sản phẩm: Áo Sơ Mi Trắng Kem ASM844. Hoặc quí khách có thể đến tại địa chỉ shop có hiển thị bên dưới, khi chọn size phù hợp để xem và thử trực tiếp.
-
                                     </p>
 
 
@@ -47,7 +45,12 @@
                                         </div>
                                     </div>
                                     <input type="hidden" name="id_product" value="1">
-                                    <p><button class="btn btn-primary btn-addtocart" type="submit"> Thêm vào giỏ hàng</button></p>
+                                    <button class="btn btn-primary btn-addtocart"
+                                        data-url = "{{ route('addToCart') }}"
+                                        data-product-id = "{{ $products->id }}"
+                                        data-name = "{{ $products->name }}"
+                                        data-price = "{{ $products->price }}"
+                                        > Thêm vào giỏ hàng</button>
                                 </div>
                             </form>
                         </div>
@@ -164,3 +167,31 @@
     </div>
 </div>
 @endsection
+@push('js')
+<script>
+    $(document).ready(function(){
+        $(".btn-addtocart").on('click', function(e){
+            e.preventDefault()
+            let urlCart = $(this).data('url')
+            const product_id = $(this).data('product-id')
+            const name = $(this).data('name')
+            const price = $(this).data('price')
+            const quantity = 1
+            $.ajax({
+                url: urlCart,
+                data: {
+                    _token : "{{ csrf_token() }}",
+                    product_id: product_id,
+                    name: name,
+                    price: price,
+                    quantity :quantity
+                },
+                method:"POST",
+                success: function(response){
+                    $(".cart-total-quantity").text(response.cartTotalQuantity)
+                }
+            })
+        })
+    })
+</script>
+@endpush

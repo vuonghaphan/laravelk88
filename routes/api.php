@@ -17,3 +17,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+// Route::group(['namespace' => 'api'], function () {
+//     Route::get('test', 'TestController@welcome');
+// });
+Route::get('test', 'Api\TestController@welcome');
+Route::post('bye', 'Api\TestController@goodbye');
+

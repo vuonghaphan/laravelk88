@@ -5,7 +5,8 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>VIETPRO STORE</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="/assets/client/css/animate.css">
 	<!-- Icomoon Icon Fonts-->
@@ -30,7 +31,7 @@
 <body>
 	<!--header -->
         @include('client.layouts.header')
-        @include('client.layouts.banner')
+        {{-- @include('client.layouts.banner') --}}
 		<!-- End header -->
 		<!-- main -->
         @yield('content')
@@ -146,7 +147,7 @@
 	<script src="/assets/client/js/jquery.stellar.min.js"></script>
 	<!-- Main -->
 	<script src="/assets/client/js/main.js"></script>
-
+    @stack('js')
 </body>
 
 </html>

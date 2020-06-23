@@ -17,6 +17,7 @@ class Product extends Model
         'description',
         'featured',
     ];
+    protected $perPage = 5;
     //fillable : khi viết lệnh Products::create($r->all()) bên productsController@store
     // thì dữ liệu sẽ được thêm vào những cột trong fillable : goi la create số lượng lớn (:)
 

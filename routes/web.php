@@ -56,12 +56,27 @@ Route::group([
 
 
 Route::group(['namespace' => 'client'], function () {
+
+    Route::group(['middleware' => 'guest:client'], function () {
+        Route::get('login', 'LoginController@showLoginForm');
+        Route::post('login', 'LoginController@login');
+    });
+    Route::group(['middleware' => 'auth:client'], function () {
+        Route::post('logout', 'LoginController@logout');
+    });
+
     Route::get('','HomeController@index');
     Route::get('about','HomeController@about');
     Route::get('contact','HomeController@contact');
 
+    Route::get('login', 'LoginController@showLoginForm');
+    Route::post('users/{id}', 'LoginController@login');
+
     Route::group(['prefix' => 'cart'], function () {
         Route::get('', 'CartController@index');
+        Route::post('add', 'CartController@add')->name('addToCart');
+        Route::post('remove', 'CartController@remove');
+        Route::post('update', 'CartController@update');
         Route::get('checkout', 'CartController@checkout');
         Route::get('complete', 'CartController@complete');
     });

@@ -39,72 +39,49 @@
                         <span>Xóa</span>
                     </div>
                 </div>
+                @php
+                    $total = 0;
+                @endphp
+                @foreach ($cart as $cart)
+                @php
+                    $total += $cart->price*$cart->quantity;
+                @endphp
                 <div class="product-cart">
                     <div class="one-forth">
                         <div class="product-img">
-                            <img class="img-thumbnail cart-img" src="/assets/client/images/ao-so-mi-hoa-tiet-den-asm1223-10191.jpg">
+                            <img class="img-thumbnail cart-img" src="{{ $cart->attributes['avatar'] }}">
                         </div>
                         <div class="detail-buy">
-                            <h4>Mã : SP01</h4>
-                            <h5>Áo Khoác Nam Đẹp</h5>
+                            <h4>Mã : {{ $cart->attributes['sku'] }}</h4>
+                            <h5>{{ $cart->name }}</h5>
                         </div>
                     </div>
                     <div class="one-eight text-center">
                         <div class="display-tc">
-                            <span class="price">680.000 đ</span>
+                            <span class="price">{{ $cart->price }}</span>
                         </div>
                     </div>
                     <div class="one-eight text-center">
                         <div class="display-tc">
                             <input type="number" id="quantity" name="quantity"
-                                class="form-control input-number text-center" value="1">
+                                class="form-control input-number input-quantity
+                                text-center"
+                                data-product-id="{{ $cart->id }}"
+                                value="{{ $cart->quantity}}">
                         </div>
                     </div>
                     <div class="one-eight text-center">
                         <div class="display-tc">
-                            <span class="price">1.200.000 đ</span>
+                            <span class="price unit-price">{{ number_format($cart->price*$cart->quantity)}}  đ</span>
                         </div>
                     </div>
                     <div class="one-eight text-center">
                         <div class="display-tc">
-                            <a href="#" class="closed"></a>
+                            <a href="#" class="closed" data-product-id="{{ $cart->id }}"></a>
                         </div>
                     </div>
                 </div>
-                <div class="product-cart">
-                    <div class="one-forth">
-                        <div class="product-img">
-                            <img class="img-thumbnail cart-img" src="/assets/client/images/ao-so-mi-trang-kem-asm836-8193.jpg">
-                        </div>
-                        <div class="detail-buy">
-                            <h4>Mã : SP01</h4>
-                            <h5>Áo Khoác Nam Đẹp</h5>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <span class="price">680.000 đ</span>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <input type="number" id="quantity" name="quantity"
-                                class="form-control input-number text-center" value="1">
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <span class="price">1.200.000 đ</span>
-                        </div>
-                    </div>
-                    <div class="one-eight text-center">
-                        <div class="display-tc">
-                            <a href="#" class="closed"></a>
-                        </div>
-                    </div>
-                </div>
-
-
+                @endforeach
             </div>
         </div>
         <div class="row">
@@ -117,10 +94,10 @@
                         <div class="col-md-3 col-md-push-1 text-center">
                             <div class="total">
                                 <div class="sub">
-                                    <p><span>Tổng:</span> <span>4.000.000 đ</span></p>
+                                    <p><span>Tổng:</span> <span> đ</span></p>
                                 </div>
                                 <div class="grand-total">
-                                    <p><span><strong>Tổng cộng:</strong></span> <span>3.550.000 đ</span></p>
+                                    <p><span><strong>Tổng cộng:</strong></span> <span class="cart-total">{{ number_format(Cart::getTotal()) }} đ</span></p>
                                     <a href="checkout.html" class="btn btn-primary">Thanh toán <i
                                             class="icon-arrow-right-circle"></i></a>
                                 </div>
@@ -133,3 +110,45 @@
     </div>
 </div>
 @endsection
+@push('js')
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js" ></script>
+<script>
+    $(document).ready(function() {
+        $(".closed").on("click", function(e){
+            e.preventDefault()
+            const _this = $(this)
+            $.ajax({
+                url: '/cart/remove',
+                method: "POST",
+                data:{
+                    _token: "{{ csrf_token() }}",
+                   product_id: $(this).data('product-id')
+                },
+                success: function(){
+                    _this.parents(".product-cart").remove()
+                }
+            })
+            $(this).parents(".product-cart").remove()
+        })
+        $(".input-quantity").on("change", _.debounce(function(){
+            const quantity = $(this).val()
+            const product_id = $(this).data('product-id')
+            const _input_quantity_context = $(this)
+            $.ajax({
+                url: '/cart/update',
+                method: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    product_id: product_id,
+                    quantity: quantity
+                },
+                success: function(response){
+                    _input_quantity_context.parents('.product-cart').find('.unit-price').text(response.itemSubTotal+ 'đ' )
+                    $(".cart-total").text(response.total)
+                }
+            })
+        }, 1000))
+    })
+</script>
+
+@endpush

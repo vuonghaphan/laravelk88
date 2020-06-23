@@ -37,8 +37,8 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label>Danh mục</label>
-                                    <select class="form-control" name="parent_id" id="">
-                                        <option value="0" selected>----ROOT----</option>
+                                    <select class="form-control" name="category_id" id="">
+                                        <option value="" >----ROOT----</option>
                                         @include('admin.categories.option', ['level' => 0])
                                     </select>
                                     </div>

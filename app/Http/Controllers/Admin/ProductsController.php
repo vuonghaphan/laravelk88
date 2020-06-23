@@ -72,7 +72,7 @@ class ProductsController extends Controller
             $input['avatar'] = asset("file/img/products/{$imgName}"); //cho đường dẫn ảnh trên trinh duyệt
         }
         $product = Product::create($input);
-        return redirect("admin/products/{$product->id}/edit");
+        return redirect("admin/products");
     }
 
     /**
